@@ -1,0 +1,36 @@
+﻿<Window x:Class="ApiRushtellSite.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ApiRushtellSite"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="483" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="537*"/>
+            <ColumnDefinition Width="263*"/>
+        </Grid.ColumnDefinitions>
+        <ListView Grid.Column="0" Grid.Row="0" Name="listView" Grid.ColumnSpan="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="Id"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Deposit}" Header="Deposit"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Type}" Header="Type"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Добавить" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="0,305,0,0" VerticalAlignment="Top" Height="49" Width="101" Click="Button_Click"/>
+        <Button Content="Удалить" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="0,375,0,0" VerticalAlignment="Top" Height="49" Width="101" Click="Button_Click_1"/>
+        <TextBox x:Name="Id" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="0,114,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="Name" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="0,137,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="Deposit" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="0,160,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="Type" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="0,183,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+
+    </Grid>
+</Window>
