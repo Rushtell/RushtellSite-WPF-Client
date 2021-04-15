@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using ApiRushtellLibrary;
 
 namespace ApiRushtellSite
 {
     interface IView
     {
-        ListView listViewDB { get; set; }
-        TextBox textBoxId { get; set; }
-        TextBox textBoxName { get; set; }
-        TextBox textBoxDeposit { get; set; }
-        TextBox textBoxType { get; set; }
-        Dispatcher dispatcher { get; set; }
+        void ChangeRepository(ObservableCollection<Client> clients);
+
+        event EventHandler<Client> ClientAdded;
+        event EventHandler<Client> ClientDeleted;
     }
 }

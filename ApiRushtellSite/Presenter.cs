@@ -11,60 +11,81 @@ namespace ApiRushtellSite
 {
     class Presenter
     {
-        IView View { get; set; }
+        IView view { get; set; }
 
-        IModel Model { get; set; }
+        IModel model { get; set; }
 
-        public Presenter(IView View)
+        public Presenter(IView View, IModel Model)
         {
-            this.View = View;
+            this.view = View;
+            this.model = Model;
 
-            Model = new Model();
+            view.ClientAdded += View_ClientAdded;
+            view.ClientDeleted += View_ClientDeleted;
+            model.repositoryChange += Model_repositoryChange;
         }
 
-        public void ViewFromDB()
+        private void Model_repositoryChange(object sender, System.Collections.ObjectModel.ObservableCollection<Client> e)
         {
-            View.listViewDB.ItemsSource = Model.repository.db;
-
-            View.dispatcher.Invoke(() => Model.api.GetClients().ToList().ForEach(e => Model.repository.db.Add(e)));
+            view.ChangeRepository(e);
         }
 
-        public void AddToDB()
+        private void View_ClientDeleted(object sender, Client e)
         {
-            foreach (var item in Model.repository.db)
-            {
-                if (item.Id == Convert.ToInt32(View.textBoxId.Text))
-                {
-                    MessageBox.Show("Укажите другой Id");
-                    return;
-                }
-            }
-            Client client = new Client()
-            {
-                Id = Convert.ToInt32(View.textBoxId.Text),
-                Name = View.textBoxName.Text,
-                Deposit = Convert.ToInt32(View.textBoxDeposit.Text),
-                Type = View.textBoxType.Text,
-            };
-
-            Model.repository.db.Clear();
-
-            Model.api.AddClient(client);
-
-            View.dispatcher.Invoke(() => Model.api.GetClients().ToList().ForEach(e => Model.repository.db.Add(e)));
+            model.DeleteFromDb(e);
         }
 
-        public void DeleteFromDB()
+        private void View_ClientAdded(object sender, Client e)
         {
-            if (View.listViewDB.SelectedIndex != -1)
-            {
-                Model.api.DeleteClient(((Client)View.listViewDB.SelectedItem).Id);
-                Model.repository.db.Remove(View.listViewDB.SelectedItem as Client);
-            }
-            else
-            {
-                MessageBox.Show("Выберите кого хотите удалить");
-            }
+            model.AddInDb(e);
         }
+
+
+
+
+        //public void ViewFromDB()
+        //{
+        //    View.listViewDB.ItemsSource = Model.repository.db;
+
+        //    View.dispatcher.Invoke(() => Model.api.GetClients().ToList().ForEach(e => Model.repository.db.Add(e)));
+        //}
+
+        //public void AddToDB()
+        //{
+        //    foreach (var item in Model.repository.db)
+        //    {
+        //        if (item.Id == Convert.ToInt32(View.textBoxId.Text))
+        //        {
+        //            MessageBox.Show("Укажите другой Id");
+        //            return;
+        //        }
+        //    }
+        //    Client client = new Client()
+        //    {
+        //        Id = Convert.ToInt32(View.textBoxId.Text),
+        //        Name = View.textBoxName.Text,
+        //        Deposit = Convert.ToInt32(View.textBoxDeposit.Text),
+        //        Type = View.textBoxType.Text,
+        //    };
+
+        //    Model.repository.db.Clear();
+
+        //    Model.api.AddClient(client);
+
+        //    View.dispatcher.Invoke(() => Model.api.GetClients().ToList().ForEach(e => Model.repository.db.Add(e)));
+        //}
+
+        //public void DeleteFromDB()
+        //{
+        //    if (View.listViewDB.SelectedIndex != -1)
+        //    {
+        //        Model.api.DeleteClient(((Client)View.listViewDB.SelectedItem).Id);
+        //        Model.repository.db.Remove(View.listViewDB.SelectedItem as Client);
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Выберите кого хотите удалить");
+        //    }
+        //}
     }
 }

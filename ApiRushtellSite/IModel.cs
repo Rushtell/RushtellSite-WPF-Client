@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +10,10 @@ namespace ApiRushtellSite
 {
     interface IModel
     {
-        ApiRushtellSiteModel api { get; set; }
+        event EventHandler<ObservableCollection<Client>> repositoryChange;
 
-        Repository repository { get; set; }
+        void DeleteFromDb(Client client);
+
+        void AddInDb(Client client);
     }
 }

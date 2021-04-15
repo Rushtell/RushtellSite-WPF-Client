@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ApiRushtellLibrary;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,38 +23,34 @@ namespace ApiRushtellSite
     /// </summary>
     public partial class MainWindow : Window, IView
     {
-        public ListView listViewDB { get; set; }
-        public TextBox textBoxId { get; set; }
-        public TextBox textBoxName { get; set; }
-        public TextBox textBoxDeposit { get; set; }
-        public TextBox textBoxType { get; set; }
-        public Dispatcher dispatcher { get; set; }
-        Presenter presenter;
+        public event EventHandler<Client> ClientAdded;
+        public event EventHandler<Client> ClientDeleted;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            listViewDB = listView;
-            textBoxId = Id;
-            textBoxName = Name;
-            textBoxDeposit = Deposit;
-            textBoxType = Type;
-            dispatcher = Dispatcher;
-
-            presenter = new Presenter(this);
-
-            presenter.ViewFromDB();
         }
+
+        public void ChangeRepository(ObservableCollection<Client> clients)
+        {
+            listView.ItemsSource = clients;
+        }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            presenter.AddToDB();
+            ClientAdded?.Invoke(this, new Client()
+            {
+                Id = Convert.ToInt32(Id.Text),
+                Name = Name.Text,
+                Deposit = Convert.ToInt32(Deposit.Text),
+                Type = Type.Text
+            });
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            presenter.DeleteFromDB();
+            ClientDeleted?.Invoke(this, (listView.SelectedItem as Client));
         }
     }
 }

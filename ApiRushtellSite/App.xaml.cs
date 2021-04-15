@@ -13,15 +13,15 @@ namespace ApiRushtellSite
     /// </summary>
     public partial class App : Application
     {
-        //App()
-        //{
-        //    InitializeComponent();
-        //}
-
         [STAThread]
         static void Main()
         {
             MainWindow view = new MainWindow();
+
+            Model model = new Model();
+
+            Presenter presenter = new Presenter(view, model);
+            model.FillLocalDb();
 
             App app = new App();
             app.Run(view);
