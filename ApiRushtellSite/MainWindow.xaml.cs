@@ -25,6 +25,7 @@ namespace ApiRushtellSite
     {
         public event EventHandler<Client> ClientAdded;
         public event EventHandler<Client> ClientDeleted;
+        public event EventHandler<int> IndexListChanged;
 
         public MainWindow()
         {
@@ -51,6 +52,16 @@ namespace ApiRushtellSite
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             ClientDeleted?.Invoke(this, (listView.SelectedItem as Client));
+        }
+
+        public void ShowError(string msg)
+        {
+            MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            IndexListChanged?.Invoke(this, listView.SelectedIndex);
         }
     }
 }

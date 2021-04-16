@@ -16,6 +16,7 @@ namespace ApiRushtellSite
         public Repository repository { get; set; }
 
         public event EventHandler<ObservableCollection<Client>> repositoryChange;
+        public event EventHandler<string> errorAddClient;
 
         public Model()
         {
@@ -29,6 +30,14 @@ namespace ApiRushtellSite
 
         public void AddInDb(Client client)
         {
+            foreach (var item in repository.db)
+            {
+                if (item.Id == client.Id)
+                {
+                    errorAddClient?.Invoke(this, "Клиент с указаным идентификатором уже существует");
+                    return;
+                }
+            }
             api.AddClient(client);
             FillLocalDb();
         }

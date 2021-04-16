@@ -12,6 +12,8 @@ namespace ApiRushtellSite
     {
         event EventHandler<ObservableCollection<Client>> repositoryChange;
 
+        event EventHandler<string> errorAddClient;
+
         void DeleteFromDb(Client client);
 
         void AddInDb(Client client);

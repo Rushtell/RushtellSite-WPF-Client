@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ApiRushtellSite"
         mc:Ignorable="d"
-        Title="MainWindow" Height="483" Width="800">
+        Title="WPF Client" Height="445" Width="800" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="0*"/>
+            <RowDefinition Height="444"/>
+            <RowDefinition Height="1"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="537*"/>
-            <ColumnDefinition Width="263*"/>
+            <ColumnDefinition Width="537"/>
+            <ColumnDefinition Width="263"/>
         </Grid.ColumnDefinitions>
-        <ListView Grid.Column="0" Grid.Row="0" Name="listView" Grid.ColumnSpan="1">
+        <ListView Grid.Column="0" Grid.Row="0" Name="listView" Grid.ColumnSpan="1" Margin="0,0,0,45" SelectionChanged="listView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="Id"/>
@@ -25,12 +25,18 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Добавить" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="0,305,0,0" VerticalAlignment="Top" Height="49" Width="101" Click="Button_Click"/>
-        <Button Content="Удалить" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="0,375,0,0" VerticalAlignment="Top" Height="49" Width="101" Click="Button_Click_1"/>
-        <TextBox x:Name="Id" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="0,114,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
-        <TextBox x:Name="Name" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="0,137,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
-        <TextBox x:Name="Deposit" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="0,160,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
-        <TextBox x:Name="Type" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="0,183,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+        <Button Content="Добавить" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Height="49" Width="100" Click="Button_Click" Margin="0,296,0,0"/>
+        <Button Content="Удалить" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="0,350,0,0" VerticalAlignment="Top" Height="49" Width="102" Click="Button_Click_1"/>
+        <TextBox x:Name="Id" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Margin="57,210,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="181" Height="18"/>
+        <TextBox x:Name="Name" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Margin="57,231,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="181" Height="18"/>
+        <TextBox x:Name="Deposit" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Margin="57,252,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="181" Height="18"/>
+        <TextBox x:Name="Type" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Margin="57,273,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="181" Height="18"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,211,0,0" Text="ID:" TextWrapping="Wrap" VerticalAlignment="Top" Height="16" Width="27"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,232,0,0" Text="Name:" TextWrapping="Wrap" VerticalAlignment="Top" Height="16" Width="42"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,253,0,0" Text="Deposit:" TextWrapping="Wrap" VerticalAlignment="Top" Height="16" Width="47"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,274,0,0" Text="Type:" TextWrapping="Wrap" VerticalAlignment="Top" Height="16" Width="42"/>
+        <Image Grid.Column="1" Margin="107,10,108,385" Stretch="Fill" Source="Resources/img.png"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0,64,0,0" Text="Rushtell WPF Client" TextWrapping="Wrap" VerticalAlignment="Top" Height="44" Width="242" FontSize="36" FontWeight="Bold" FontFamily="Bahnschrift SemiLight Condensed"/>
 
     </Grid>
 </Window>

@@ -15,6 +15,8 @@ namespace ApiRushtellSite
 
         IModel model { get; set; }
 
+        int index = -1;
+
         public Presenter(IView View, IModel Model)
         {
             this.view = View;
@@ -22,7 +24,19 @@ namespace ApiRushtellSite
 
             view.ClientAdded += View_ClientAdded;
             view.ClientDeleted += View_ClientDeleted;
+            view.IndexListChanged += View_IndexListChanged;
             model.repositoryChange += Model_repositoryChange;
+            model.errorAddClient += Model_errorAddClient;
+        }
+
+        private void Model_errorAddClient(object sender, string e)
+        {
+            view.ShowError(e);
+        }
+
+        private void View_IndexListChanged(object sender, int e)
+        {
+            index = e;
         }
 
         private void Model_repositoryChange(object sender, System.Collections.ObjectModel.ObservableCollection<Client> e)
@@ -32,60 +46,19 @@ namespace ApiRushtellSite
 
         private void View_ClientDeleted(object sender, Client e)
         {
-            model.DeleteFromDb(e);
+            if (index != -1)
+            {
+                model.DeleteFromDb(e);
+            }
+            else
+            {
+                view.ShowError("Выберите кого хотите удалить");
+            }
         }
 
         private void View_ClientAdded(object sender, Client e)
         {
             model.AddInDb(e);
         }
-
-
-
-
-        //public void ViewFromDB()
-        //{
-        //    View.listViewDB.ItemsSource = Model.repository.db;
-
-        //    View.dispatcher.Invoke(() => Model.api.GetClients().ToList().ForEach(e => Model.repository.db.Add(e)));
-        //}
-
-        //public void AddToDB()
-        //{
-        //    foreach (var item in Model.repository.db)
-        //    {
-        //        if (item.Id == Convert.ToInt32(View.textBoxId.Text))
-        //        {
-        //            MessageBox.Show("Укажите другой Id");
-        //            return;
-        //        }
-        //    }
-        //    Client client = new Client()
-        //    {
-        //        Id = Convert.ToInt32(View.textBoxId.Text),
-        //        Name = View.textBoxName.Text,
-        //        Deposit = Convert.ToInt32(View.textBoxDeposit.Text),
-        //        Type = View.textBoxType.Text,
-        //    };
-
-        //    Model.repository.db.Clear();
-
-        //    Model.api.AddClient(client);
-
-        //    View.dispatcher.Invoke(() => Model.api.GetClients().ToList().ForEach(e => Model.repository.db.Add(e)));
-        //}
-
-        //public void DeleteFromDB()
-        //{
-        //    if (View.listViewDB.SelectedIndex != -1)
-        //    {
-        //        Model.api.DeleteClient(((Client)View.listViewDB.SelectedItem).Id);
-        //        Model.repository.db.Remove(View.listViewDB.SelectedItem as Client);
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Выберите кого хотите удалить");
-        //    }
-        //}
     }
 }
